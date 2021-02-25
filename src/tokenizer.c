@@ -60,12 +60,22 @@ int count_words(char *str){
   return count; 
 
 }
+char *copyStr(char *inStr, short len){
+  
+char *cStr = (char*)malloc(sizeof(char)*(len+1));
+ int i = 0;
+ while(i<len){
+   cStr[i] = inStr[i];
+   i++;
+ }
+ cStr[len] = '\0';
+ return cStr;
+}
 
   int main(){
     char str[] = "  hello";
     char *ptr = word_start(str);
     printf("\n%p\n", ptr);
-    /* char *ptr = word_start(str); */
     printf("%p", &str[2]);
 
     char strend[] = "hello ";
@@ -73,5 +83,8 @@ int count_words(char *str){
     printf("\n%p\n", ptrt);
     printf("%p", &strend[5]);
 
-    printf("%i", count_words("hello world"));
+    printf("\n%i\n", count_words("hello world"));
+
+    char strCopy[] = "hello there world";
+      printf("%s",copyStr(str,sizeof(str)));
   }

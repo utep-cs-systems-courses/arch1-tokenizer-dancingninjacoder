@@ -2,15 +2,16 @@
 #include <stdio.h>
 #include "history.h"
 
+//History list is initislized to root of list to null
 List *init_history(){
 
   List *histList = malloc(sizeof(List));
   histList->root = NULL;
   return histList;
 }
-
+//every string created is added to history list
 void add_history(List *list, char *str){
-  Item  *node = (Item*)malloc(sizeof(Item));
+  Item  *node = (Item*)malloc(sizeof(Item));//allocates memory for node
 
   node-> str = str;
   node-> next = NULL;

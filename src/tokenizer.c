@@ -100,11 +100,6 @@ char **tokenize(char* str){
 }
 
 void print_tokens(char **tokens){
-  /*
-  for(int i=0; tokens[i] != NULL; i++){
-    printf("<%s>", tokens[i]);
-  }
-  */
    
   while(*tokens != NULL){
     printf("<%s>", *tokens);

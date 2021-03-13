@@ -5,7 +5,7 @@
 //History list is initislized to root of list to null
 List *init_history(){
 
-  List *histList = malloc(sizeof(List));
+  List *histList = (List*)malloc(sizeof(List));
   histList->root = NULL;
   return histList;
 }
@@ -40,7 +40,7 @@ char *get_history(List *list, int id){
   }
   Item *holder = list->root;
   while(holder != NULL){
-    if(holder ->id == id){
+    if(holder->id == id){
       return holder->str;
     }
     holder = holder->next;
@@ -51,11 +51,20 @@ char *get_history(List *list, int id){
 void print_history(List *list){
   Item *holder = list->root;
   while(holder != NULL){
-    printf("ID<%i> STR[%s]\n", holder->id, holder->str);
+    printf("ID; %i STR; %s \n", holder->id, holder->str);
     holder = holder->next;
   }
 }
 
 void free_history(List *list){
+  Item *cur = list->root;
+  while(cur->next != 0){
+    Item *prev = cur;
+    cur = cur->next;
+    free(prev->str);
+    free(prev);
+  }
+  free(cur->str);
+  free(cur);
   free(list);
 }

@@ -4,15 +4,14 @@
 
 //checks if char c is a tab or space and not zero terminator 
 int space_char(char c){
-  if((c=='\t' || c == ' ') && c !=0){
+  if(c=='\t' || c == ' ' || c == '\n'){
     return 1;
   }
-   return 0;
+  return 0;
 }
 //check if char c is not a tab or space and not zero terminator
 int non_space_char(char c){
- 
-  if((c=='\t' || c== ' ') && c!=0){
+  if(c=='\t' || c==' ' || c == '\n'){
     return 0;
   }
   return 1;
@@ -68,6 +67,14 @@ int count_words(char *str){
     count++;
   }
   return count;
+  /*
+  int count = 0;
+  while(*str != '\0'){
+    str = word_start(str);
+    str = word_terminator(str);
+    count++;
+  }
+  return count; */ 
 }
 
 char *copy_str(char *inStr, short len){
@@ -101,11 +108,15 @@ char **tokenize(char* str){
 }
 
 void print_tokens(char **tokens){
-  
-  while(*tokens != NULL){
+
+  int i;
+  for(i=0; tokens[i] != NULL; i++){
+    printf("%s\n",tokens[i]);
+  }
+  /* while(*tokens != NULL){
     printf("<%s>", *tokens);
     tokens++;
-  }
+  }*/
   
 } 
 
@@ -117,5 +128,4 @@ void free_tokens(char **tokens){
   }
   free(tokens);
 }
-    
-
+   

@@ -6,46 +6,40 @@
 #include "history.c"
 
 #define MAXINPUT 100
-
 int main(){
-
-
-  printf("Welcome to tokenizer:\n");
-  printf("Enter a string to tokenize:\n");
-  List *listHist = init_history();
+  char userInput[MAXINPUT]; //set max input for char in a string
+  char **tokStr; //pointer of pointer for new strings 
+  List *listHist = init_history(); //creates linked list
+  printf("Hello! Let's tokenize some strings.");
+  printf("Choose an option:\n");
+  printf(" ($) for entering a string.");
+  printf(" (#) for printing your history.");
+  printf(" (*) for quit program\n");
   printf("> ");
-  char userFirstChoice[MAXINPUT];
-  fgets(userFirstChoice, MAXINPUT, stdin);
-  add_history(listHist, userFirstChoice);
-  char **tok = tokenize(userFirstChoice);
-  print_tokens(tok);
-  
-  
-  printf("Choose a menu option:\n");
-  printf("1. Enter another string to tokenize\n");
-  printf("2. Print histroy\n");
-  printf("3. Exit\n");
-  int userChoice;
-  scanf("%d", &userChoice);
-  while(userChoice != 3){
-    if(userChoice == 1){
-      printf("> ");
-      char userStr[100];
-      scanf(" %[^\n]", userStr);
-      printf("%s\n", userStr);
-      tok = tokenize(userStr);
-      printf("Your tokenized string is:\n");
-      print_tokens(tok);
-
-      printf("...now adding to history");
+  fgets(userInput, MAXINPUT, stdin); //gets user input
+ 
+  while(*userInput != '*'){ 
+    printf("> ");
+    fgets(userInput, MAXINPUT, stdin);
+    if(*userInput != '*' && *userInput != '#'){
+      tokStr = tokenize(userInput);//will tokenize user input
+      printf("your string tokenized is:\n");
+      print_tokens(tokStr);//print tokens
+      free_tokens(tokStr);//frees tokens
+      printf("...now adding to history...\n");
+      printf("Enter a new comand\n");
+      //creates a node inisde the link list with the user string 
+      add_history(listHist, copy_str(userInput, sizeof(userInput)));
     }
-    if(userChoice == 2){
+    if(*userInput =='#'){
+      printf("...now printing history:\n");
       print_history(listHist);
     }
-    if(userChoice == 3){
-      exit(0);
-    }
-    printf("Select menu option:\n");
-    scanf("%d",&userChoice);
+    if(*userInput == '*'){ //quits program
+      printf("Goodbye.\n");
+      break;
+    } 
   }
-}  
+  return 0;
+}
+ 
